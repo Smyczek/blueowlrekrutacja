@@ -1,0 +1,39 @@
+{% liquid
+if option1
+    assign option = option1
+    assign option_number = 1
+else
+    assign option = option2
+    assign option_number = 2
+endif
+%}
+
+<div class="no-tabs">
+    <div class="dynamic-section__options">
+        <div class="dynamic-section__tab-header">
+            <p>RECOMENDED OPTION</p>
+            <p class="label">Option {{ option_number }}</p>
+        </div>
+        <div class="dynamic-section__tab-content" tabindex="1">
+            <div class="dynamic-section__tab-item">
+                <ol>
+                    {% for step1 in option %}
+                        <li style="--index: {{ forloop.index }};">
+                            <div>
+                                {% if step1.icon %}
+                                    {{ step1.icon | image_url: width: 24 | image_tag: loading: loading }}
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h3><span>{{ forloop.index }}.</span>{{ step1.heading }}</h3>
+                                {% if step1.description != blank %}
+                                    <p>{{ step1.description }}</p>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

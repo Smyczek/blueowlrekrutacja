@@ -1,0 +1,50 @@
+<div class="pure-css-tabs">
+    <div class="dynamic-section__options">
+        <input class="radiotab" name="tabs" tabindex="1" type="radio" id="tabone" checked="checked">
+        <label class="label" for="tabone">Option 1</label>
+        <div class="dynamic-section__tab-content" tabindex="1">
+            <div class="dynamic-section__tab-item">
+                <ol>
+                    {% for step1 in option1 %}
+                        <li style="--index: {{ forloop.index }};">
+                            <div>
+                                {% if step1.icon %}
+                                    {{ step1.icon | image_url: width: 24 | image_tag: loading: loading }}
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h3><span>{{ forloop.index }}.</span>{{ step1.heading }}</h3>
+                                {% if step1.description != blank %}
+                                    <p>{{ step1.description }}</p>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+        <input class="radiotab" tabindex="1" name="tabs" type="radio" id="tabtwo">
+        <label class="label" for="tabtwo">Option 2</label>
+        <div class="dynamic-section__tab-content" tabindex="1">
+            <div class="dynamic-section__tab-item">
+                <ol>
+                    {% for step2 in option2 %}
+                        <li style="--index: {{ forloop.index }};">
+                            <div class="step-icon">
+                                {% if step2.icon %}
+                                    {{ step2.icon | image_url: width: 24 | image_tag: loading: loading }}
+                                {% endif %}
+                            </div>
+                            <div>
+                                <h3><span>{{ forloop.index }}.</span>{{ step2.heading }}</h3>
+                                {% if step2.description != blank %}
+                                    <p>{{ step2.description }}</p>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

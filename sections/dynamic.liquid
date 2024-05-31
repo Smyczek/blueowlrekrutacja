@@ -1,0 +1,110 @@
+{{ 'section-dynamic.css' | asset_url | stylesheet_tag }}
+{% if section.settings.tabs_type == 'vanilla_js_tabs' %}
+    <script src="{{ 'section-dynamic-vanilla.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+
+{% if section.index > 1 %}
+    {% assign loading = "lazy" %}
+{% else %}
+    {% assign loading = "eager" %}
+{% endif %}
+
+<div class="dynamic-section" data-loading-attr="{{ section.index }}">
+    {% if section.settings.image %}
+        {{ section.settings.image |
+            image_url: width: 1220 |
+            image_tag: widths: '250, 305, 610, 1220', 
+            style: 'max-width: 610px; height: auto;',
+            class: 'dynamic-section__image',
+            loading: loading }}
+    {% else %}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+    <div class="dynamic-section__container">
+        {% if section.settings.heading %}
+            <div class="dynamic-section__heading">
+                {{ section.settings.heading }}
+            </div>
+        {% endif %}
+
+        {% if  product.metafields.custom.option_1.value or product.metafields.custom.option_2.value  %}
+            {% if  product.metafields.custom.option_1.value and product.metafields.custom.option_2.value  %}
+                {% if section.settings.tabs_type == 'vanilla_js_tabs' %}
+                    {% render 'vanilla-js-tabs', loading: loading, option1: product.metafields.custom.option_1.value, option2: product.metafields.custom.option_2.value %}
+                {% endif %}
+                {% if section.settings.tabs_type == 'vue_js_tabs' %}
+                    {% render 'vue-js-tabs', loading: loading, option1: product.metafields.custom.option_1.value, option2: product.metafields.custom.option_2.value %}
+                {% endif %}
+                {% if section.settings.tabs_type == 'css_tabs' %}
+                    {% render 'css-tabs', loading: loading, option1: product.metafields.custom.option_1.value, option2: product.metafields.custom.option_2.value %}
+                {% endif %}
+            {% else %}
+                {% render 'no-tabs', loading: loading, option1: product.metafields.custom.option_1.value, option2: product.metafields.custom.option_2.value %}
+            {% endif %}
+        {% else %}
+            <div class="dynamic-section__empty">
+                <p>Product does not have options.</p>
+            </div>
+        {% endif %}
+
+        {% if section.settings.text %}
+            <p class="dynamic-section__text-footer">{{ section.settings.text }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Dynamic Section",
+        "tag": "section",
+        "class": "section",
+        "enabled_on": {
+            "templates": ["product"]
+        },
+        "settings": [
+            {
+                "type": "select",
+                "id": "tabs_type",
+                "label": "Tabs type",
+                "default": "vue_js_tabs",
+                "info": "Depending on the project, you can choose between different tab types.",
+                "options": [
+                    {
+                        "label": "Vue.js Tabs",
+                        "value": "vue_js_tabs"
+                    },
+                    {
+                        "label": "Vanilla JS Tabs",
+                        "value": "vanilla_js_tabs"
+                    },
+                    {
+                        "label": "Pure CSS Tabs",
+                        "value": "css_tabs"
+                    }
+                ]
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Section image"
+            },
+            {
+                "type": "richtext",
+                "id": "heading",
+                "label": "Section Heading",
+                "default": "<h2>What is the process?</h2>"
+            },
+            {
+                "type": "inline_richtext",
+                "id": "text",
+                "label": "Section footer text",
+                "default": "Discover more details on <a href='/pages/contact' title='Contact'>our process</a>"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Dynamic Section"
+            }
+        ]
+    }
+{% endschema %}

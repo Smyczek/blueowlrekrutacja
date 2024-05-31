@@ -1,0 +1,99 @@
+<script src="{{ 'vue.global.js' | asset_url }}" defer="defer"></script>
+
+<div id="app">
+    <tabs-component :option1="option1" :option2="option2"></tabs-component>
+</div>
+
+<script type="text/x-template" id="tabs-template">
+    <div class="dynamic-section__options vue-js-tabs">
+        <ul class="dynamic-section__tabs" role="tablist">
+            <li class="tab-item" role="presentation">
+                <button id="tab1" class="tab-item__button" :class="{ active: activeTab === 'option1' }" type="button" role="tab" aria-selected="true" aria-controls="option1" @click="selectTab('option1')">Option 1</button>
+            </li>
+            <li class="tab-item" role="presentation">
+                <button id="tab2" class="tab-item__button" :class="{ active: activeTab === 'option2' }" type="button" role="tab" aria-selected="false" aria-controls="option2" @click="selectTab('option2')">Option 2</button>
+            </li>
+        </ul>
+        <div class="dynamic-section__tab-content">
+            <div id="option1" class="dynamic-section__tab-item falde" :class="{ show: activeTab === 'option1', active: activeTab === 'option1' }" role="tabpanel" aria-labelledby="tab1">
+                <ol>
+                    <li v-for="(step, index) in option1" :key="index" :style="{ '--index': index + 1 }">
+                        <div v-if="step.icon" v-html="step.icon"></div>
+                        <div>
+                            <h3><span>${ index + 1 }.</span>${ step.heading }</h3>
+                            <p v-if="step.description">${ step.description }</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <div id="option2" class="dynamic-section__tab-item falde" :class="{ show: activeTab === 'option2', active: activeTab === 'option2' }" role="tabpanel" aria-labelledby="tab2">
+                <ol>
+                    <li v-for="(step, index) in option2" :key="index" :style="{ '--index': index + 1 }">
+                        <div v-if="step.icon" v-html="step.icon"></div>
+                        <div>
+                            <h3><span>${ index + 1 }.</span>${ step.heading }</h3>
+                            <p v-if="step.description">${ step.description }</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var option1Data = [
+            {% for step1 in option1 %}
+                {
+                    heading: '{{ step1.heading }}',
+                    description: '{{ step1.description }}',
+                    icon: `{% if step1.icon %}{{ step1.icon | image_url: width: 24 | image_tag: loading: loading }}{% endif %}`
+                }{% if forloop.last %}{% else %},{% endif %}
+            {% endfor %}
+        ];
+        
+        var option2Data = [
+            {% for step2 in option2 %}
+                {
+                    heading: '{{ step2.heading }}',
+                    description: '{{ step2.description }}',
+                    icon: `{% if step2.icon %}{{ step2.icon | image_url: width: 24 | image_tag: loading: loading }}{% endif %}`
+                }{% if forloop.last %}{% else %},{% endif %}
+            {% endfor %}
+        ];
+
+        const TabsComponent = {
+            template: '#tabs-template',
+            props: ['option1', 'option2'],
+            delimiters: ['${', '}'],
+            setup(props) {
+                const { ref } = Vue;
+                const activeTab = ref('option1');
+            
+                const selectTab = (tab) => {
+                    activeTab.value = tab;
+                };
+            
+                return {
+                    activeTab,
+                    selectTab
+                };
+            }
+        };
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    option1: option1Data,
+                    option2: option2Data
+                };
+            },
+            components: {
+                'tabs-component': TabsComponent
+            }
+        });
+
+        app.mount('#app');
+    });
+</script>

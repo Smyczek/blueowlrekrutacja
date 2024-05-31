@@ -1,0 +1,51 @@
+
+<div class="dynamic-section__options vanilla-js-tabs">
+    <ul class="dynamic-section__tabs" role="tablist">
+        <li class="tab-item" role="presentation">
+            <button id="tab1" class="tab-item__button active" type="button" role="tab" aria-selected="true" aria-controls="option1">Option 1</button>
+        </li>
+        <li class="tab-item" role="presentation">
+            <button id="tab2" class="tab-item__button" type="button" role="tab" aria-selected="false" aria-controls="option2">Option 2</button>
+        </li>
+    </ul>
+    <div class="dynamic-section__tab-content">
+        <div id="option1" class="dynamic-section__tab-item falde show active" role="tabpanel" aria-labelledby="tab1">
+            <ol>
+                {% for step1 in option1 %}
+                    <li style="--index: {{ forloop.index }};">
+                        <div>
+                            {% if step1.icon %}
+                                {{ step1.icon | image_url: width: 24 | image_tag: loading: loading }}
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h3><span>{{ forloop.index }}.</span>{{ step1.heading }}</h3>
+                            {% if step1.description != blank %}
+                                <p>{{ step1.description }}</p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div id="option2" class="dynamic-section__tab-item falde" role="tabpanel" aria-labelledby="tab2">
+            <ol>
+                {% for step2 in option2 %}
+                    <li style="--index: {{ forloop.index }};">
+                        <div class="step-icon">
+                            {% if step2.icon %}
+                                {{ step2.icon | image_url: width: 24 | image_tag: loading: loading }}
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h3><span>{{ forloop.index }}.</span>{{ step2.heading }}</h3>
+                            {% if step2.description != blank %}
+                                <p>{{ step2.description }}</p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
