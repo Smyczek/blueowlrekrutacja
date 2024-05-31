@@ -78,11 +78,11 @@ I create 3 types:
 
 ### Theme Files related to the Dynamic Section
 
-`sections/dynamic.liquid` - section main file
-`scss/section-dynamic.scss` - SCSS version of section styles
-`assets/section-dynamic.css` - CSS generated using Gulp
-`assets/section-dynamic-vanilla.js` - Scripts used in Vanilla JS tabs version
-`snippets/vanilla-js-tabs.liquid` - tabs content for Vanilla JS tabs version
-`snippets/vue-js-tabs.liquid` - tabs content for Vue JS tabs version
-`snippets/no-tabs.liquid` - tabs content for Pure CSS tabs version
+- `sections/dynamic.liquid` - section main file
+- `scss/section-dynamic.scss` - SCSS version of section styles
+- `assets/section-dynamic.css` - CSS generated using Gulp
+- `assets/section-dynamic-vanilla.js` - Scripts used in Vanilla JS tabs version
+- `snippets/vanilla-js-tabs.liquid` - tabs content for Vanilla JS tabs version
+- `snippets/vue-js-tabs.liquid` - tabs content for Vue JS tabs version
+- `snippets/no-tabs.liquid` - tabs content for Pure CSS tabs version
 
