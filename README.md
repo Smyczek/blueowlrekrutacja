@@ -84,5 +84,6 @@ I create 3 types:
 - `assets/section-dynamic-vanilla.js` - Scripts used in Vanilla JS tabs version
 - `snippets/vanilla-js-tabs.liquid` - tabs content for Vanilla JS tabs version
 - `snippets/vue-js-tabs.liquid` - tabs content for Vue JS tabs version
-- `snippets/no-tabs.liquid` - tabs content for Pure CSS tabs version
+- `snippets/css-tabs.liquid` - tabs content for Pure CSS tabs version
+- `snippets/no-tabs.liquid` - content for static version without tabs
 
