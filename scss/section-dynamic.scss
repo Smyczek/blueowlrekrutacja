@@ -21,6 +21,11 @@ $txt_color: rgb(34, 36, 44);
             align-self: center;
             width: 30%;
         }
+
+        @include media-query(min-width, 1441px) {
+            position: absolute;
+            left: 0;
+        }
     }
 
     &__container {
@@ -35,6 +40,10 @@ $txt_color: rgb(34, 36, 44);
         @include media-query(min-width, 750px) {
             gap: 56px;
             padding: 10% 48px;
+        }
+
+        @include media-query(min-width, 1441px) {
+            margin-left: 610px;
         }
 
         > * {
