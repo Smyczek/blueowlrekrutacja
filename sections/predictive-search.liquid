@@ -80,6 +80,7 @@
                 {% for product in predictive_search.resources.products %}
                   <li>metafiled</li>
                   {% assign metafields = product.metafields %}
+                  <script>console.log({{ product }}</script>
                   {% for metafield in metafields %}
                     {% if metafield.value contains predictive_search.terms %}
                       <li><a href="{{ product.url }}">{{ product.title }}</a></li>
