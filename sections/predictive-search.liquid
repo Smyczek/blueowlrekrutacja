@@ -78,10 +78,11 @@
               </h2>
               <ul id="predictive-search-results-products-list" class="predictive-search__results-list list-unstyled" role="group" aria-labelledby="predictive-search-products">
                 {% for product in predictive_search.resources.products %}
-                  <li>metafiled</li>
+                  
                   {% assign metafields = product.metafields %}
-                  <script>console.log('test')</script>
+                  
                   {% for metafield in metafields %}
+                    <li>metafiled</li>
                     {% if metafield.value contains predictive_search.terms %}
                       <li><a href="{{ product.url }}">{{ product.title }}</a></li>
                     {% endif %}
