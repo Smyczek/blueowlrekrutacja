@@ -77,7 +77,7 @@
                 {{- 'templates.search.products' | t -}}
               </h2>
               <ul id="predictive-search-results-products-list" class="predictive-search__results-list list-unstyled" role="group" aria-labelledby="predictive-search-products">
-                {% for product in collections.all.products %}
+                {% for product in predictive_search.resources.products %}
                   <li>metafiled</li>
                   {% assign metafields = product.metafields %}
                   {% for metafield in metafields %}
