@@ -82,7 +82,7 @@
                   {% assign metafields = product.metafields %}
 
                   {% for metafield in metafields %}
-                    {{ metafield }}
+                    {{ metafield.value }}
                     {% if metafield.value contains predictive_search.terms %}
                       <li><a href="{{ product.url }}">{{ product.title }}</a></li>
                     {% endif %}
